@@ -1,7 +1,70 @@
 import { useState } from "react";
 import "./App.css";
+import AddAirplane from "./procedures/AddAirplane";
+import AddAirport from "./procedures/AddAirport";
+import AddPerson from "./procedures/AddPerson";
+import FlightLanding from "./procedures/FlightLanding";
+import FlightTakeoff from "./procedures/FlightTakeoff";
+import GrantRevokePilotLicense from "./procedures/GrantRevokePilotLicense";
+import OfferFlight from "./procedures/OfferFlight";
+import AlternativeAirports from "./procedures/AlternativeAirports";
+import AssignPilot from "./procedures/AssignPilot";
+import FlightsInTheAir from "./procedures/FlightsInTheAir";
+import FlightsOnTheGround from "./procedures/FlightsOnTheGround";
+import PassengersBoard from "./procedures/PassengersBoard";
+import PassengersDisembark from "./procedures/PassengersDisembark";
+import PeopleInTheAir from "./procedures/PeopleInTheAir";
+import PeopleOnTheGround from "./procedures/PeopleOnTheGround";
+import RecycleCrew from "./procedures/RecycleCrew";
+import RetireFlight from "./procedures/RetireFlight";
+import RouteSummary from "./procedures/RouteSummary";
+import SimulationCycle from "./procedures/SimulationCycle";
 
 function App() {
+  const renderProcedureComponent = () => {
+    switch (procedure.number) {
+      case 1:
+        return <AddAirplane />;
+      case 2:
+        return <AddAirport />;
+      case 3:
+        return <AddPerson />;
+      case 4:
+        return <GrantRevokePilotLicense />;
+      case 5:
+        return <OfferFlight />;
+      case 6:
+        return <FlightLanding />;
+      case 7:
+        return <FlightTakeoff />;
+      case 8:
+        return <PassengersBoard />;
+      case 9:
+        return <PassengersDisembark />;
+      case 10:
+        return <AssignPilot />;
+      case 11:
+        return <RecycleCrew />;
+      case 12:
+        return <RetireFlight />;
+      case 13:
+        return <SimulationCycle />;
+      case 14:
+        return <FlightsInTheAir />;
+      case 15:
+        return <FlightsOnTheGround />;
+      case 16:
+        return <PeopleInTheAir />;
+      case 17:
+        return <PeopleOnTheGround />;
+      case 18:
+        return <RouteSummary />;
+      case 19:
+        return <AlternativeAirports />;
+      default:
+        return <div>Please select a procedure</div>;
+    }
+  };
   const procedures = [
     { name: "add_airplane", number: 1 },
     { name: "add_airport", number: 2 },
@@ -31,6 +94,7 @@ function App() {
       setProcedure(selectedProc);
     }
   };
+
   return (
     <>
       <header className="header">
@@ -43,9 +107,8 @@ function App() {
           ))}
         </select>
       </header>
-      <main></main>
+      <main>{renderProcedureComponent()}</main>
     </>
   );
 }
-
 export default App;
