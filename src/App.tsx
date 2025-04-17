@@ -19,14 +19,9 @@ import RecycleCrew from "./procedures/RecycleCrew";
 import RetireFlight from "./procedures/RetireFlight";
 import RouteSummary from "./procedures/RouteSummary";
 import SimulationCycle from "./procedures/SimulationCycle";
-
-async function getData() {
-  const res = await fetch("http://localhost:5000");
-  console.log(await res.json());
-}
+import ResetDatabase from "./procedures/ResetDatabase";
 
 function App() {
-  getData();
   const renderProcedureComponent = () => {
     switch (procedure.number) {
       case 1:
@@ -67,6 +62,8 @@ function App() {
         return <RouteSummary />;
       case 19:
         return <AlternativeAirports />;
+      case 20:
+        return <ResetDatabase />;
       default:
         return <div>Please select a procedure</div>;
     }
@@ -91,6 +88,7 @@ function App() {
     { name: "people_on_the_ground", number: 17 },
     { name: "route_summary", number: 18 },
     { name: "alternative_airports", number: 19 },
+    { name: "reset_database", number: 20 },
   ];
   const [procedure, setProcedure] = useState(procedures[0]);
   const handleChange = (e: { target: { value: any } }) => {
