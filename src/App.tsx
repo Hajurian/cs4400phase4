@@ -20,7 +20,13 @@ import RetireFlight from "./procedures/RetireFlight";
 import RouteSummary from "./procedures/RouteSummary";
 import SimulationCycle from "./procedures/SimulationCycle";
 
+async function getData() {
+  const res = await fetch("http://localhost:5000");
+  console.log(await res.json());
+}
+
 function App() {
+  getData();
   const renderProcedureComponent = () => {
     switch (procedure.number) {
       case 1:
