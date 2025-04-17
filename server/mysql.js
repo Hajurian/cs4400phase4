@@ -65,6 +65,39 @@ app.get("/add_airplane", (req, res) => {
     }
   });
 });
+
+app.get("/add_airport", (req, res) => {
+  const {
+    ip_airportID,
+    ip_airport_name,
+    ip_city,
+    ip_state,
+    ip_country,
+    ip_locationID,
+  } = req.query;
+
+  const sql = `CALL add_airport(?, ?, ?, ?, ?, ?)`;
+  const values = [
+    ip_airportID,
+    ip_airport_name,
+    ip_city,
+    ip_state,
+    ip_country,
+    ip_locationID,
+  ];
+
+  connection.query(sql, values, (err, rows) => {
+    if (err) {
+      console.error("Error adding airport:", err);
+      res
+        .status(500)
+        .json({ success: false, message: "Failed to add airport" });
+    } else {
+      res.json({ success: true, message: rows });
+    }
+  });
+});
+
 // VIEWS
 app.get("/flight_in_air", (req, res) => {
   connection.query(
