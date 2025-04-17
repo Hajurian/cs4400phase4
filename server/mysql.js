@@ -26,6 +26,19 @@ const port = 5000;
 app.listen(port);
 app.use(cors({ origin: "http://localhost:5173" })); //allow cors to localhost
 
+app.get("/flight_in_air", (req, res) => {
+  connection.query(
+    "select l.departure as departing_from,l.arrival as arriving_at,count(distinct f.flightID) as num_flights,group_concat(distinct f.flightID order by f.flightID asc) as flight_list,MIN(f.next_time) AS earliest_arrival,MAX(f.next_time) AS latest_arrival,GROUP_CONCAT(DISTINCT a.locationID ORDER BY a.locationID desc) AS airplane_list from flight f join route_path r ON f.routeID = r.routeID and f.progress = r.sequence join leg l ON r.legID = l.legID join airplane a ON f.support_airline = a.airlineID and f.support_tail = a.tail_num where f.airplane_status = 'in_flight' group by l.departure, l.arrival;",
+    (err, rows) => {
+      if (err) {
+        throw err;
+      } else {
+        res.json(rows).status(200);
+      }
+    }
+  );
+});
+
 //alternative airport
 app.get("/alternative_airports", (req, res) => {
   connection.query(
