@@ -98,6 +98,266 @@ app.get("/add_airport", (req, res) => {
   });
 });
 
+app.get("/add_person", (req, res) => {
+  const {
+    ip_personID,
+    ip_first_name,
+    ip_last_name,
+    ip_locationID,
+    ip_taxID,
+    ip_experience,
+    ip_miles,
+    ip_funds,
+  } = req.query;
+
+  const sql = `CALL add_person(?, ?, ?, ?, ?, ?, ?, ?)`;
+  const values = [
+    ip_personID,
+    ip_first_name,
+    ip_last_name,
+    ip_locationID,
+    ip_taxID || null,
+    parseInt(ip_experience) || null,
+    parseInt(ip_miles) || null,
+    parseInt(ip_funds) || null,
+  ];
+
+  connection.query(sql, values, (err, rows) => {
+    if (err) {
+      console.error("Error adding person:", err);
+      res.status(500).json({ success: false, message: "Failed to add person" });
+    } else {
+      res.json({ success: true, message: rows });
+    }
+  });
+});
+
+app.get("/grant_revoke_pilot_license", (req, res) => {
+  const { ip_personID, ip_locationID } = req.query;
+
+  const sql = `CALL grant_revoke_pilot_license(?, ?)`;
+  const values = [ip_personID, ip_locationID];
+
+  connection.query(sql, values, (err, rows) => {
+    if (err) {
+      console.error("Error in grant/revoke:", err);
+      res.status(500).json({
+        success: false,
+        message: "Failed to grant/revoke pilot license",
+      });
+    } else {
+      res.json({ success: true, message: rows });
+    }
+  });
+});
+
+app.get("/offer_flight", (req, res) => {
+  const {
+    ip_flightID,
+    ip_routeID,
+    ip_support_airline,
+    ip_progress,
+    ip_next_time,
+    ip_support_tail,
+    ip_cost,
+  } = req.query;
+
+  const sql = `CALL offer_flight(?, ?, ?, ?, ?, ?, ?)`;
+  const values = [
+    ip_flightID,
+    ip_routeID,
+    ip_support_airline,
+    parseInt(ip_progress),
+    ip_next_time,
+    ip_support_tail,
+    parseInt(ip_cost),
+  ];
+
+  connection.query(sql, values, (err, rows) => {
+    if (err) {
+      console.error("Error offering flight:", err);
+      res
+        .status(500)
+        .json({ success: false, message: "Failed to offer flight" });
+    } else {
+      res.json({ success: true, message: rows });
+    }
+  });
+});
+
+app.get("/land_flight", (req, res) => {
+  const { ip_flightID } = req.query;
+
+  const sql = `CALL flight_landing(?)`;
+  const values = [ip_flightID];
+
+  connection.query(sql, values, (err, rows) => {
+    if (err) {
+      console.error("Error landing flight:", err);
+      res
+        .status(500)
+        .json({ success: false, message: "Failed to land flight" });
+    } else {
+      res.json({ success: true, message: rows });
+    }
+  });
+});
+
+app.get("/takeoff_flight", (req, res) => {
+  const { ip_flightID } = req.query;
+
+  const sql = `CALL takeoff_flight(?)`;
+  const values = [ip_flightID];
+
+  connection.query(sql, values, (err, rows) => {
+    if (err) {
+      console.error("Error during takeoff:", err);
+      res
+        .status(500)
+        .json({ success: false, message: "Failed to takeoff flight" });
+    } else {
+      res.json({ success: true, message: rows });
+    }
+  });
+});
+app.get("/passengers_board", (req, res) => {
+  const { ip_flightID } = req.query;
+
+  if (!ip_flightID) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Flight ID is required" });
+  }
+
+  const sql = `CALL passengers_board(?)`;
+  const values = [ip_flightID];
+
+  connection.query(sql, values, (err, rows) => {
+    if (err) {
+      console.error("Error boarding passenger:", err);
+      res
+        .status(500)
+        .json({ success: false, message: "Failed to board passenger" });
+    } else {
+      res.json({ success: true, message: rows });
+    }
+  });
+});
+app.get("/disembark_passenger", (req, res) => {
+  const { ip_flightID } = req.query;
+
+  if (!ip_flightID) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Flight ID is required" });
+  }
+
+  const sql = `CALL passengers_disembark(?)`;
+  const values = [ip_flightID];
+
+  connection.query(sql, values, (err, rows) => {
+    if (err) {
+      console.error("Error disembarking passenger:", err);
+      res
+        .status(500)
+        .json({ success: false, message: "Failed to disembark passenger" });
+    } else {
+      res.json({ success: true, message: rows });
+    }
+  });
+});
+
+app.get("/assign_pilot", (req, res) => {
+  const { ip_personID, ip_flightID } = req.query;
+
+  if (!ip_personID || !ip_flightID) {
+    return res.status(400).json({
+      success: false,
+      message: "Person ID and Flight ID are required",
+    });
+  }
+
+  const sql = `CALL assign_pilot(?, ?)`;
+  const values = [ip_personID, ip_flightID];
+
+  connection.query(sql, values, (err, rows) => {
+    if (err) {
+      console.error("Error assigning pilot:", err);
+      res
+        .status(500)
+        .json({ success: false, message: "Failed to assign pilot" });
+    } else {
+      res.json({ success: true, message: rows });
+    }
+  });
+});
+
+app.get("/recycle_crew", (req, res) => {
+  const { ip_flightID } = req.query;
+
+  if (!ip_flightID) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Flight ID is required" });
+  }
+
+  const sql = `CALL recycle_crew(?)`;
+  const values = [ip_flightID];
+
+  connection.query(sql, values, (err, rows) => {
+    if (err) {
+      console.error("Error recycling crew:", err);
+      res
+        .status(500)
+        .json({ success: false, message: "Failed to recycle crew" });
+    } else {
+      res.json({ success: true, message: rows });
+    }
+  });
+});
+
+app.get("/retire_flight", (req, res) => {
+  const { ip_flightID } = req.query;
+
+  if (!ip_flightID) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Flight ID is required" });
+  }
+
+  const sql = `CALL retire_flight(?)`;
+  const values = [ip_flightID];
+
+  connection.query(sql, values, (err, rows) => {
+    if (err) {
+      console.error("Error retiring flight:", err);
+      res
+        .status(500)
+        .json({ success: false, message: "Failed to retire flight" });
+    } else {
+      res.json({ success: true, message: rows });
+    }
+  });
+});
+
+app.get("/simulation_cycle", (req, res) => {
+  const sql = `CALL simulation_cycle()`;
+
+  connection.query(sql, (err, rows) => {
+    if (err) {
+      console.error("Error completing simulation cycle:", err);
+      res
+        .status(500)
+        .json({
+          success: false,
+          message: "Failed to complete simulation cycle",
+        });
+    } else {
+      res.json({ success: true, message: rows });
+    }
+  });
+});
+
 // VIEWS
 app.get("/flight_in_air", (req, res) => {
   connection.query(

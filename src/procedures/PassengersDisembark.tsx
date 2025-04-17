@@ -1,17 +1,44 @@
+import { useState } from "react";
 import "../App.css";
 
 const PassengersDisembark = () => {
+  const [flightID, setFlightID] = useState("");
+
+  async function handleClick() {
+    if (!flightID) {
+      alert("Invalid Flight ID");
+      return;
+    }
+
+    const res = await fetch(
+      "http://localhost:5000/disembark_passenger?" +
+        new URLSearchParams({ ip_flightID: flightID })
+    );
+    const data = await res.json();
+    if (data.success) {
+      alert("Passenger disembarked successfully");
+    } else {
+      alert("Disembarking failed");
+    }
+    console.log(data);
+  }
+
   return (
     <div className="wrapper">
       <div className="inputs">
         <label>FlightID</label>
-        <input type="text" />
+        <input
+          type="text"
+          value={flightID}
+          onChange={(e) => setFlightID(e.target.value)}
+        />
       </div>
 
       <div className="inputs">
-        <button>Disembark</button>
+        <button onClick={handleClick}>Disembark</button>
       </div>
     </div>
   );
 };
+
 export default PassengersDisembark;
