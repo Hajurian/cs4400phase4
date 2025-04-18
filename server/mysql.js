@@ -27,6 +27,19 @@ app.listen(port);
 app.use(cors({ origin: "http://localhost:5173" })); //allow cors to localhost
 
 //PROCEDURES
+app.get("/", (req, res) => {
+  const { table } = req.query;
+  const sql = `SELECT * FROM ${table}`;
+  connection.query(sql, (err, rows) => {
+    if (err) {
+      console.error("Error adding airport:", err);
+      res.status(500).json({ success: false, message: "Failed to fetch" });
+    } else {
+      res.json({ table: table, rows });
+    }
+  });
+});
+
 app.get("/add_airplane", (req, res) => {
   const {
     ip_airlineID,
@@ -61,7 +74,7 @@ app.get("/add_airplane", (req, res) => {
         .status(500)
         .json({ success: false, message: "Failed to add airplane" });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({ success: true, message: "Successfully added plane" });
     }
   });
 });
@@ -93,7 +106,7 @@ app.get("/add_airport", (req, res) => {
         .status(500)
         .json({ success: false, message: "Failed to add airport" });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({ success: true, message: "Successfully added airport" });
     }
   });
 });
@@ -127,7 +140,7 @@ app.get("/add_person", (req, res) => {
       console.error("Error adding person:", err);
       res.status(500).json({ success: false, message: "Failed to add person" });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({ success: true, message: "Successfully added person" });
     }
   });
 });
@@ -146,7 +159,10 @@ app.get("/grant_revoke_pilot_license", (req, res) => {
         message: "Failed to grant/revoke pilot license",
       });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({
+        success: true,
+        message: "Successfully granted/revoked pilot license",
+      });
     }
   });
 });
@@ -180,7 +196,7 @@ app.get("/offer_flight", (req, res) => {
         .status(500)
         .json({ success: false, message: "Failed to offer flight" });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({ success: true, message: "Successfully offered flight" });
     }
   });
 });
@@ -198,7 +214,7 @@ app.get("/land_flight", (req, res) => {
         .status(500)
         .json({ success: false, message: "Failed to land flight" });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({ success: true, message: "Successfully landed flight" });
     }
   });
 });
@@ -216,7 +232,7 @@ app.get("/takeoff_flight", (req, res) => {
         .status(500)
         .json({ success: false, message: "Failed to takeoff flight" });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({ success: true, message: "Successfully took off" });
     }
   });
 });
@@ -239,7 +255,7 @@ app.get("/passengers_board", (req, res) => {
         .status(500)
         .json({ success: false, message: "Failed to board passenger" });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({ success: true, message: "Successfully boarded passengers" });
     }
   });
 });
@@ -262,7 +278,10 @@ app.get("/disembark_passenger", (req, res) => {
         .status(500)
         .json({ success: false, message: "Failed to disembark passenger" });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({
+        success: true,
+        message: "Successfully disembarked passengers",
+      });
     }
   });
 });
@@ -287,7 +306,7 @@ app.get("/assign_pilot", (req, res) => {
         .status(500)
         .json({ success: false, message: "Failed to assign pilot" });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({ success: true, message: "Successfully assigned pilot" });
     }
   });
 });
@@ -311,7 +330,7 @@ app.get("/recycle_crew", (req, res) => {
         .status(500)
         .json({ success: false, message: "Failed to recycle crew" });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({ success: true, message: "Successfully recycled crew" });
     }
   });
 });
@@ -335,7 +354,7 @@ app.get("/retire_flight", (req, res) => {
         .status(500)
         .json({ success: false, message: "Failed to retire flight" });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({ success: true, message: "Successfully retired flight" });
     }
   });
 });
@@ -346,14 +365,12 @@ app.get("/simulation_cycle", (req, res) => {
   connection.query(sql, (err, rows) => {
     if (err) {
       console.error("Error completing simulation cycle:", err);
-      res
-        .status(500)
-        .json({
-          success: false,
-          message: "Failed to complete simulation cycle",
-        });
+      res.status(500).json({
+        success: false,
+        message: "Failed to complete simulation cycle",
+      });
     } else {
-      res.json({ success: true, message: rows });
+      res.json({ success: true, message: "Successfully completed simulation" });
     }
   });
 });

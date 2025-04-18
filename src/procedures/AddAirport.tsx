@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../App.css";
+//DONE
 
 const AddAirport = () => {
   const [airportID, setAirportID] = useState("");
@@ -35,11 +36,7 @@ const AddAirport = () => {
     );
 
     const data = await res.json();
-    if (data.message instanceof Array) {
-      alert("Add airport failed");
-    } else {
-      alert("Successfully added airport");
-    }
+
     console.log(data);
   }
 

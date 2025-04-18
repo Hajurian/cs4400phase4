@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../App.css";
-
+//DONE
 const AddAirplane = () => {
   const [airline, setAirline] = useState("");
   const [tailNum, setTailNum] = useState("");
@@ -20,7 +20,8 @@ const AddAirplane = () => {
       !seatCap ||
       !speed ||
       !locationID ||
-      !planeType
+      !planeType ||
+      !neo
     ) {
       alert("Invalid parameters");
       return;
@@ -41,11 +42,7 @@ const AddAirplane = () => {
         })
     );
     const data = await res.json();
-    if (data.message instanceof Array) {
-      alert("add failed");
-    } else {
-      alert("Successfully added plane");
-    }
+    alert(data.message);
     console.log(data);
   }
 
