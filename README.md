@@ -11,3 +11,8 @@
 6. You can now run local host and do all flight tracking procedures from the browser!
 
 <br> <br>
+<h3>How to view tables</h3>
+<br>
+go to http://localhost:5000/?table={TABLENAME} 
+<br> **omit curly braces when putting in the name**
+<br> NOTE: the table name must match what has been provided in the SQL table
