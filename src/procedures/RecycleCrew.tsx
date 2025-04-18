@@ -15,11 +15,7 @@ const RecycleCrew = () => {
         new URLSearchParams({ ip_flightID: flightID })
     );
     const data = await res.json();
-    if (data.success) {
-      alert("Crew recycled successfully");
-    } else {
-      alert("Recycling failed");
-    }
+    alert(data.message);
     console.log(data);
   }
 

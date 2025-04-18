@@ -16,11 +16,7 @@ const AssignPilot = () => {
         new URLSearchParams({ ip_personID: personID, ip_flightID: flightID })
     );
     const data = await res.json();
-    if (data.success) {
-      alert("Pilot assigned successfully");
-    } else {
-      alert("Assignment failed");
-    }
+    alert(data.message);
     console.log(data);
   }
 

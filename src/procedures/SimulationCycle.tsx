@@ -4,11 +4,7 @@ const SimulationCycle = () => {
   async function handleClick() {
     const res = await fetch("http://localhost:5000/simulation_cycle");
     const data = await res.json();
-    if (data.success) {
-      alert("Next step completed successfully");
-    } else {
-      alert("Failed to complete next step");
-    }
+    alert(data.message);
     console.log(data);
   }
 

@@ -29,6 +29,24 @@ app.use(cors({ origin: "http://localhost:5173" })); //allow cors to localhost
 //PROCEDURES
 app.get("/", (req, res) => {
   const { table } = req.query;
+  const validTables = [
+    "airline",
+    "airplane",
+    "airport",
+    "flight",
+    "leg",
+    "location",
+    "passenger",
+    "passenger_vacations",
+    "person",
+    "pilot",
+    "pilot_licenses",
+    "route",
+    "route_path",
+  ];
+  if (!validTables.includes(table)) {
+    return res.status(400).send("Invalid table");
+  }
   const sql = `SELECT * FROM ${table}`;
   connection.query(sql, (err, rows) => {
     if (err) {

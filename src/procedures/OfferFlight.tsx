@@ -38,11 +38,7 @@ const OfferFlight = () => {
     );
 
     const data = await res.json();
-    if (data.message instanceof Array) {
-      alert("Offer flight failed");
-    } else {
-      alert("Flight offered successfully");
-    }
+    alert(data.message);
     console.log(data);
   }
 

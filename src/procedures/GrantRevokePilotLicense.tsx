@@ -20,11 +20,7 @@ const GrantRevokePilotLicense = () => {
     );
 
     const data = await res.json();
-    if (data.message instanceof Array) {
-      alert("Grant/Revoke failed");
-    } else {
-      alert("Pilot license successfully granted or revoked");
-    }
+    alert(data.message);
     console.log(data);
   }
 

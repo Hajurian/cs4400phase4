@@ -18,11 +18,7 @@ const FlightTakeoff = () => {
     );
 
     const data = await res.json();
-    if (data.message instanceof Array) {
-      alert("Flight takeoff failed");
-    } else {
-      alert("Flight took off successfully");
-    }
+    alert(data.message);
     console.log(data);
   }
 

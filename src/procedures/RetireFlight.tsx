@@ -15,11 +15,7 @@ const RetireFlight = () => {
         new URLSearchParams({ ip_flightID: flightID })
     );
     const data = await res.json();
-    if (data.success) {
-      alert("Flight retired successfully");
-    } else {
-      alert("Retirement failed");
-    }
+    alert(data.message);
     console.log(data);
   }
 

@@ -18,11 +18,7 @@ const FlightLanding = () => {
     );
 
     const data = await res.json();
-    if (data.message instanceof Array) {
-      alert("Flight landing failed");
-    } else {
-      alert("Flight landed successfully");
-    }
+    alert(data.message);
     console.log(data);
   }
 

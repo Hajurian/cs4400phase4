@@ -15,11 +15,7 @@ const PassengersDisembark = () => {
         new URLSearchParams({ ip_flightID: flightID })
     );
     const data = await res.json();
-    if (data.success) {
-      alert("Passenger disembarked successfully");
-    } else {
-      alert("Disembarking failed");
-    }
+    alert(data.message);
     console.log(data);
   }
 

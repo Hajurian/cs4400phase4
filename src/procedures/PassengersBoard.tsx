@@ -15,11 +15,7 @@ const PassengersBoard = () => {
         new URLSearchParams({ ip_flightID: flightID })
     );
     const data = await res.json();
-    if (data.success) {
-      alert("Passenger boarded successfully");
-    } else {
-      alert("Boarding failed");
-    }
+    alert(data.message);
     console.log(data);
   }
 
