@@ -19,7 +19,7 @@ go to http://localhost:5000/?table={TABLENAME}
 <br>
 <br>
 <h3>How to use website</h3>
-Simply select the procedure you want to use and fill in the necessary (valid) data into the input boxes. When you click the submit button, you will be prompted of the status of the update. If the update is successful, you will see the 
+Simply select the procedure you want to use and fill in the necessary (valid) data into the input boxes. When you click the submit button, you will be prompted of the status of the update. If the update is successful, you will see the results reflected in the tables when you view them at http://localhost:5000/?table={TABLENAME} 
 
 <br><br>
 <h3>Technologies used</h3>
