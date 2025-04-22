@@ -20,6 +20,7 @@ import RetireFlight from "./procedures/RetireFlight";
 import RouteSummary from "./procedures/RouteSummary";
 import SimulationCycle from "./procedures/SimulationCycle";
 import ResetDatabase from "./procedures/ResetDatabase";
+import Views from "./procedures/Views";
 
 function App() {
   const renderProcedureComponent = () => {
@@ -63,6 +64,8 @@ function App() {
       case 19:
         return <AlternativeAirports />;
       case 20:
+        return <Views />;
+      case 21:
         return <ResetDatabase />;
       default:
         return <div>Please select a procedure</div>;
@@ -88,7 +91,8 @@ function App() {
     { name: "people_on_the_ground", number: 17 },
     { name: "route_summary", number: 18 },
     { name: "alternative_airports", number: 19 },
-    { name: "reset_database", number: 20 },
+    { name: "views", number: 20 },
+    { name: "reset_database", number: 21 },
   ];
   const [procedure, setProcedure] = useState(procedures[0]);
   const handleChange = (e: { target: { value: any } }) => {
