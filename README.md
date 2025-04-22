@@ -11,7 +11,7 @@
 6. You can now run local host and do all flight tracking procedures from the browser!
 
 <br> <br>
-<h3>How to view tables</h3>
+<h3>How to view tables (in JSON)</h3>
 <br>
 go to http://localhost:5000/?table={TABLENAME} 
 <br> **omit curly braces when putting in the name**
@@ -19,7 +19,7 @@ go to http://localhost:5000/?table={TABLENAME}
 <br>
 <br>
 <h3>How to use website</h3>
-Simply select the procedure you want to use and fill in the necessary (valid) data into the input boxes. When you click the submit button, you will be prompted of the status of the update. If the update is successful, you will see the results reflected in the tables when you view them at http://localhost:5000/?table={TABLENAME} 
+Simply select the procedure you want to use and fill in the necessary (valid) data into the input boxes. When you click the submit button, you will be prompted of the status of the update. If the update is successful, you will see the results reflected in the tables when you view them at http://localhost:5000/?table={TABLENAME} or in the views section.
 
 <br><br>
 <h3>Technologies used</h3>
