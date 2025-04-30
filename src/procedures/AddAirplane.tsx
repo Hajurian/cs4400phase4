@@ -14,13 +14,14 @@ const AddAirplane = () => {
 
   async function handleClick() {
     if (
-      //null check
       !airline ||
       !tailNum ||
       !seatCap ||
       !speed ||
       !locationID ||
       !planeType ||
+      !maintained ||
+      !model ||
       !neo
     ) {
       alert("Invalid parameters");
